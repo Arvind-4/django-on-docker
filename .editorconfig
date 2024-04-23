@@ -1,0 +1,20 @@
+; https://editorconfig.org/
+
+root = true
+
+[*]
+insert_final_newline = true
+charset = utf-8
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 2
+
+[{Dockerfile,Caddyfile,Makefile,*.Makefile,go.mod,go.sum,*.go,.gitmodules,*.sh,*.yaml,*.yml,*.json,*.toml,*.xml,*.html,*.css,*.scss,*.sass,*.less,*.js,*.ts,*.jsx,*.tsx,*.php,*.sql,*.java,*.rb,*.rake,*.rkt,*.clj,*.cljs,*.cljc,*.edn,*.ex,*.exs,*.erl,*.hrl,*.scala,*.scm,*.ss,*.sld,*.sps,*.sc}]
+indent_style = tab
+indent_size = 2
+
+[{*.py}]
+indent_size = 4
+
+[*.md]
+trim_trailing_whitespace = false

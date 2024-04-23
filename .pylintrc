@@ -1,0 +1,3 @@
+[MASTER]
+ignore=migrations
+# disable=C0116
