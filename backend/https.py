@@ -1,0 +1,9 @@
+import os
+
+from backend.utils import is_true
+
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+SECURE_HSTS_SECONDS = 60 * 60 * 24 * 7 * 2
+SECURE_SSL_REDIRECT = is_true(os.environ.get("DJANGO_SECURE_SSL_REDIRECT"))
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
