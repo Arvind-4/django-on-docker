@@ -1,0 +1,54 @@
+version: "3.9"
+
+services:
+  postgres:
+    container_name: postgres-db
+    image: postgres:15
+    env_file: .env
+    restart: unless-stopped
+    volumes:
+      - "postgres-data:/var/lib/postgresql/data/"
+  django:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: django-backend
+    env_file: .env
+    volumes:
+      - "staticfiles-data:/var/www/static"
+      - "media-data:/var/www/media"
+    depends_on:
+      - postgres
+  caddy:
+    container_name: caddy-server
+    image: caddy:2.7-alpine
+    env_file: .env
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - "./Caddyfile:/etc/caddy/Caddyfile:ro"
+      - "caddy-data:/data"
+      - "caddy-config:/config"
+      - type: volume
+        source: media-data
+        target: /usr/share/caddy/media
+        read_only: true
+        volume:
+          nocopy: true
+      - type: volume
+        source: staticfiles-data
+        target: /usr/share/caddy/static
+        read_only: true
+        volume:
+          nocopy: true
+
+volumes:
+  caddy-data:
+  caddy-config:
+  media-data:
+  postgres-data: {
+    "driver": "local"
+  }
+  staticfiles-data:
